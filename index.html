@@ -754,7 +754,7 @@
 
         els.coverFill.style.transform = `scaleX(${Math.max(0.04, live.coverage)})`;
         const done = Math.min(live.seconds, CONFIG.MIN_LOCK_SECONDS);
-        els.progressLabel.textContent = `${done} van ${CONFIG.MIN_LOCK_SECONDS} s`;
+        els.progressLabel.textContent = `${done} of ${CONFIG.MIN_LOCK_SECONDS} s`;
         els.progressFill.style.transform = `scaleX(${Math.max(0.02, done / CONFIG.MIN_LOCK_SECONDS)})`;
         els.noTorch.hidden = !(state.torch === false && live.coverage < CONFIG.COVER_OK);
 
