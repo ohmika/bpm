@@ -1,8 +1,8 @@
 {
-  "name": "Pols – Hartslag",
+  "name": "Pols – Heart Rate",
   "short_name": "Pols",
-  "description": "Meet je hartslag met de camera. Alles blijft op dit apparaat.",
-  "lang": "nl",
+  "description": "Measure your heart rate using your camera. Everything stays on this device.",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "id": "./",
