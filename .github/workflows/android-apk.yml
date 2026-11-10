@@ -19,15 +19,14 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-      - name: Generate full-bleed Android launcher icons
+      - name: Generate full-bleed adaptive launcher icons
         run: |
           python3 -m pip install --quiet Pillow
           python3 - <<'PY'
-          from PIL import Image, ImageDraw
+          from PIL import Image
           from pathlib import Path
 
           source = Image.open("icon-512.png").convert("RGBA")
-          # Find the dark rounded BPM tile, excluding the surrounding white disc.
           pixels = source.load()
           xs, ys = [], []
           for y in range(source.height):
@@ -45,11 +44,11 @@ jobs:
           side = max(tile.size)
           square = Image.new("RGBA", (side, side), (12, 10, 10, 255))
           square.alpha_composite(tile, ((side-tile.width)//2, (side-tile.height)//2))
-          # Remove the old white disc and let the black BPM tile fill the launcher shape.
-          mask = Image.new("L", (side, side), 0)
-          draw = ImageDraw.Draw(mask)
-          draw.rounded_rectangle((0, 0, side-1, side-1), radius=int(side*0.19), fill=255)
-          square.putalpha(mask)
+          # Use the cropped BPM tile as the adaptive foreground. Matching black
+          # adaptive background makes Android's safe-zone scaling invisible.
+          drawable = Path("app/src/main/res/drawable-nodpi")
+          drawable.mkdir(parents=True, exist_ok=True)
+          square.save(drawable / "ic_launcher_foreground.png", optimize=True)
           sizes = {
               "mipmap-mdpi": 48,
               "mipmap-hdpi": 72,
@@ -61,8 +60,22 @@ jobs:
               out = Path("app/src/main/res") / folder
               out.mkdir(parents=True, exist_ok=True)
               square.resize((size, size), Image.Resampling.LANCZOS).save(out / "ic_launcher.png", optimize=True)
-          print("Generated full-bleed BPM launcher icons.")
+          print("Generated legacy and adaptive BPM launcher artwork.")
           PY
+          mkdir -p app/src/main/res/mipmap-anydpi-v26 app/src/main/res/values
+          cat > app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml <<'XML'
+          <?xml version="1.0" encoding="utf-8"?>
+          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+              <background android:drawable="@color/ic_launcher_background" />
+              <foreground android:drawable="@drawable/ic_launcher_foreground" />
+          </adaptive-icon>
+          XML
+          cat > app/src/main/res/values/ic_launcher_background.xml <<'XML'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <color name="ic_launcher_background">#0C0A0A</color>
+          </resources>
+          XML
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Build debug APK
