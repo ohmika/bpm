@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#14110f">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Meet je hartslag met de camera. Alles blijft op dit apparaat.">
+  <meta name="description" content="Measure your heart rate using your camera. Everything stays on this device.">
   <title>Pols</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -386,11 +386,11 @@
   <main>
     <header>
       <p class="eyebrow">Pols</p>
-      <h1>Hartslag</h1>
-      <p class="lead">Schatting via de camera. De berekening blijft op dit apparaat, er wordt niets verstuurd.</p>
+      <h1>Heart rate</h1>
+      <p class="lead">A camera-based estimate. All processing happens on this device; nothing is sent anywhere.</p>
     </header>
 
-    <section class="card" aria-label="Meting">
+    <section class="card" aria-label="Measurement">
       <div class="top">
         <div class="lens" id="lens">
           <video id="video" class="off" playsinline muted disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1"></video>
@@ -401,15 +401,15 @@
         </div>
 
         <div class="read">
-          <p class="torch" id="torch" hidden><svg class="icon" aria-hidden="true"><use href="#i-zap"></use></svg>Flits aan</p>
+          <p class="torch" id="torch" hidden><svg class="icon" aria-hidden="true"><use href="#i-zap"></use></svg>Flash on</p>
           <p class="bpm" id="bpm">—</p>
-          <p class="unit">slagen per minuut</p>
+          <p class="unit">beats per minute</p>
         </div>
       </div>
 
       <div class="info">
         <p class="zone" id="zone" hidden></p>
-        <p class="status" id="status">Klaar wanneer jij dat bent.</p>
+        <p class="status" id="status">Ready when you are.</p>
         <p class="note" id="beats" hidden></p>
         <p class="note" id="saved" hidden></p>
       </div>
@@ -421,53 +421,53 @@
 
       <div class="cover" id="cover" hidden>
         <div class="gauge">
-          <div class="gauge-row"><span>Lens</span><span id="coverLabel">Lens vrij</span></div>
+          <div class="gauge-row"><span>Lens</span><span id="coverLabel">Lens uncovered</span></div>
           <div class="meter" aria-hidden="true"><div id="coverFill"></div></div>
         </div>
         <div class="gauge">
-          <div class="gauge-row"><span>Meting</span><span id="progressLabel">0 van 10 s</span></div>
+          <div class="gauge-row"><span>Measurement</span><span id="progressLabel">0 of 10 s</span></div>
           <div class="meter" aria-hidden="true"><div id="progressFill"></div></div>
         </div>
-        <p class="hint" id="noTorch" hidden>Geen flits beschikbaar. Zorg voor veel licht op je vinger, bijvoorbeeld een lamp of daglicht.</p>
+        <p class="hint" id="noTorch" hidden>Flash unavailable. Make sure your finger is well lit, for example with a lamp or daylight.</p>
       </div>
 
-      <button type="button" class="btn primary" id="main" aria-label="Start of stop meting">Start meting</button>
-      <button type="button" class="btn outline" id="save" hidden aria-label="Bewaar meting">Bewaar deze meting</button>
+      <button type="button" class="btn primary" id="main" aria-label="Start or stop measurement">Start measurement</button>
+      <button type="button" class="btn outline" id="save" hidden aria-label="Save measurement">Save this reading</button>
     </section>
 
     <section class="block" id="steps">
-      <h2>Zo werkt het</h2>
+      <h2>How it works</h2>
       <ol class="steps">
         <li>
           <span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-camera"></use></svg></span>
-          <span class="tx"><b>Camera</b><span>Tik op start en geef toegang tot de camera. Waar mogelijk gaat de achtercamera aan.</span></span>
+          <span class="tx"><b>Camera</b><span>Tap Start and allow camera access. The rear camera is used whenever possible.</span></span>
         </li>
         <li>
           <span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-hand"></use></svg></span>
-          <span class="tx"><b>Vingertop</b><span>Leg je vingertop zacht over de achtercamera en de flits, tot het hele lensgebied bedekt is.</span></span>
+          <span class="tx"><b>Fingertip</b><span>Gently place your fingertip over the rear camera and flash, covering the entire camera area.</span></span>
         </li>
         <li>
           <span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-activity"></use></svg></span>
-          <span class="tx"><b>Stilhouden</b><span>Blijf ongeveer tien seconden stil. Adem gewoon door.</span></span>
+          <span class="tx"><b>Keep still</b><span>Stay still for about ten seconds. Breathe normally.</span></span>
         </li>
       </ol>
     </section>
 
     <section class="block">
       <div class="hist-head">
-        <h2>Geschiedenis</h2>
-        <button type="button" id="clear" hidden aria-label="Wis alle metingen">Wis alles</button>
+        <h2>History</h2>
+        <button type="button" id="clear" hidden aria-label="Clear all readings">Clear all</button>
       </div>
-      <p class="hint" id="histEmpty">Bewaarde metingen verschijnen hier, alleen op dit apparaat.</p>
+      <p class="hint" id="histEmpty">Saved readings will appear here. They are stored only on this device.</p>
       <ul id="hist"></ul>
     </section>
 
-    <p class="disclaimer">Dit is geen medisch apparaat. De camera ziet kleurverschil in je vingertop en schat daar een tempo uit. Gebruik het niet om iets te diagnosticeren.</p>
+    <p class="disclaimer">This is not a medical device. The camera detects color changes in your fingertip to estimate your pulse rate. Do not use it to diagnose any condition.</p>
     <p class="sr" id="announce" aria-live="polite" aria-atomic="true"></p>
   </main>
 
   <noscript>
-    <p style="padding:1.25rem;color:#b3a89c">Pols heeft JavaScript nodig om te meten.</p>
+    <p style="padding:1.25rem;color:#b3a89c">Pols needs JavaScript to measure your heart rate.</p>
   </noscript>
 
   <script>
@@ -543,7 +543,7 @@
 
       const safeText = (value, fallback = '') => (typeof value === 'string' ? value : fallback);
 
-      const fmtWhen = new Intl.DateTimeFormat('nl-NL', {
+      const fmtWhen = new Intl.DateTimeFormat('en-GB', {
         day: 'numeric',
         month: 'short',
         hour: '2-digit',
@@ -630,11 +630,11 @@
       };
 
       function heartZone(bpm) {
-        if (bpm < 50) return { label: 'Laag', hint: 'Onder wat de meeste volwassenen in rust meten.' };
-        if (bpm < 60) return { label: 'Rustig', hint: 'Laag-normaal. Vaak zo bij mensen die veel bewegen.' };
-        if (bpm <= 80) return { label: 'In rust', hint: 'Een gebruikelijk bereik als je stilzit.' };
-        if (bpm <= 100) return { label: 'Verhoogd', hint: 'Kan komen door bewegen, stress of cafeïne.' };
-        return { label: 'Hoog', hint: 'Boven de 100. Dit zegt niets definitiefs over je gezondheid.' };
+        if (bpm < 50) return { label: 'Low', hint: 'Below what most adults measure at rest.' };
+        if (bpm < 60) return { label: 'Relaxed', hint: 'At the low end of the usual range. This is common in physically active people.' };
+        if (bpm <= 80) return { label: 'At rest', hint: 'A common range when you are sitting still.' };
+        if (bpm <= 100) return { label: 'Elevated', hint: 'Can be caused by movement, stress, or caffeine.' };
+        return { label: 'High', hint: 'Above 100 bpm. This alone does not provide a definite indication of your health.' };
       }
 
       function announce(text) {
@@ -711,18 +711,18 @@
           els.zone.textContent = zone.label;
         }
 
-        let status = 'Klaar wanneer jij dat bent.';
+        let status = 'Ready when you are.';
         if (live.phase === 'requesting') {
-          status = 'Camera starten…';
+          status = 'Starting camera…';
         } else if (measuring) {
           if (live.phase === 'need-finger') {
-            status = 'Leg je vingertop op de lens.';
+            status = 'Place your fingertip over the camera lens.';
           } else if (live.seconds >= CONFIG.WEAK_AFTER && live.weak) {
-            status = 'Het signaal is zwak. Zorg voor meer licht op je vinger en druk niet te hard.';
+            status = 'The signal is weak. Add more light to your finger and avoid pressing too hard.';
           } else if (live.seconds < CONFIG.MIN_LOCK_SECONDS) {
-            status = 'Blijf stil en adem rustig door.';
+            status = 'Keep still and breathe normally.';
           } else {
-            status = 'Bijna klaar. Houd je vinger rustig op de lens.';
+            status = 'Almost there. Keep your finger steady over the lens.';
           }
         } else if (showResult) {
           status = zone.hint;
@@ -735,26 +735,26 @@
         const showBeats = measuring && live.phase !== 'need-finger' && live.beats > 0;
         els.beats.hidden = !showBeats;
         if (showBeats) {
-          els.beats.textContent = live.beats === 1 ? '1 slag gezien' : `${live.beats} slagen gezien`;
+          els.beats.textContent = live.beats === 1 ? '1 beat detected' : `${live.beats} beats detected`;
         }
 
         els.saved.hidden = !showResult;
         if (showResult) {
           els.saved.textContent = state.saved
-            ? 'Bewaard in je geschiedenis.'
-            : 'Tussentijdse schatting. De meting was nog niet afgerond.';
+            ? 'Saved to your history.'
+            : 'Preliminary estimate. The measurement was not completed.';
         }
 
         els.cover.hidden = !state.running;
         els.coverLabel.textContent = live.coverage >= CONFIG.COVER_OK
-          ? 'Vinger gezien'
+          ? 'Finger detected'
           : live.coverage >= 0.25
-            ? 'Bijna bedekt'
-            : 'Lens vrij';
+            ? 'Almost covered'
+            : 'Lens uncovered';
 
         els.coverFill.style.transform = `scaleX(${Math.max(0.04, live.coverage)})`;
         const done = Math.min(live.seconds, CONFIG.MIN_LOCK_SECONDS);
-        els.progressLabel.textContent = `${done} van ${CONFIG.MIN_LOCK_SECONDS} s`;
+        els.progressLabel.textContent = `${done} of ${CONFIG.MIN_LOCK_SECONDS} s`;
         els.progressFill.style.transform = `scaleX(${Math.max(0.02, done / CONFIG.MIN_LOCK_SECONDS)})`;
         els.noTorch.hidden = !(state.torch === false && live.coverage < CONFIG.COVER_OK);
 
@@ -763,7 +763,7 @@
           els.main.disabled = live.phase === 'requesting';
           els.main.className = 'btn ghost';
         } else {
-          els.main.textContent = showResult || state.error ? 'Opnieuw meten' : 'Start meting';
+          els.main.textContent = showResult || state.error ? 'Measure again' : 'Start measurement';
           els.main.disabled = false;
           els.main.className = 'btn primary';
         }
@@ -772,11 +772,11 @@
         els.steps.hidden = measuring;
 
         if (live.phase === 'requesting') {
-          announce('Camera starten');
+          announce('Starting camera');
         } else if (measuring) {
-          announce(live.phase === 'need-finger' ? 'Leg je vingertop op de lens' : 'Meten. Blijf stil.');
+          announce(live.phase === 'need-finger' ? 'Place your fingertip over the lens' : 'Measuring. Keep still.');
         } else if (showResult) {
-          announce(`${live.bpm} slagen per minuut. ${zone.label}.`);
+          announce(`${live.bpm} beats per minute. ${zone.label}.`);
         } else if (state.error) {
           announce(state.error);
         } else {
@@ -1115,15 +1115,15 @@
       function cameraError(err) {
         const name = err && err.name || '';
         if (name === 'NotAllowedError' || name === 'SecurityError') {
-          return 'Cameratoegang geweigerd. Sta de camera toe in je browser en probeer opnieuw.';
+          return 'Camera access was denied. Allow camera access in your browser and try again.';
         }
         if (name === 'NotFoundError' || name === 'OverconstrainedError') {
-          return 'Geen bruikbare camera gevonden op dit apparaat.';
+          return 'No usable camera was found on this device.';
         }
         if (name === 'NotReadableError') {
-          return 'De camera is in gebruik door een andere app.';
+          return 'The camera is being used by another app.';
         }
-        return 'De camera kon niet starten.';
+        return 'The camera could not be started.';
       }
 
       async function openCamera() {
@@ -1351,7 +1351,7 @@
         try {
           step(now);
         } catch {
-          state.error = 'Er ging iets mis tijdens het meten. Probeer opnieuw.';
+          state.error = 'Something went wrong while measuring. Please try again.';
           state.live = { ...state.live, bpm: null, locked: false };
           stopMeasurement();
         }
@@ -1389,11 +1389,11 @@
         let problem = null;
 
         if (now - runtime.frameAt > CONFIG.STALL_MS) {
-          problem = 'De camera levert geen beeld meer. Probeer opnieuw.';
+          problem = 'The camera is no longer providing video. Please try again.';
         } else if (!runtime.fingerAt && now - runtime.startedAt > CONFIG.NO_FINGER_MS) {
-          problem = 'Geen vinger gezien. Leg je vingertop zacht op de lens en probeer opnieuw.';
+          problem = 'No finger detected. Gently place your fingertip over the lens and try again.';
         } else if (runtime.fingerAt && now - runtime.fingerAt > CONFIG.MEASURE_MS) {
-          problem = 'Geen stabiel signaal gevonden. Houd je vinger rustig op de lens, zonder hard te drukken, en probeer opnieuw.';
+          problem = 'No stable signal detected. Keep your finger steady over the lens without pressing hard, then try again.';
         }
 
         if (!problem) return;
@@ -1482,7 +1482,7 @@
         render();
 
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          state.error = 'Deze browser kan de camera niet gebruiken. Open de pagina via een beveiligde verbinding.';
+          state.error = 'This browser cannot access the camera. Open this page over a secure connection (HTTPS).';
           state.live = { phase: 'error', bpm: null, locked: false, coverage: 0, seconds: 0, beats: 0, weak: false };
           runtime.starting = false;
           render();
@@ -1514,7 +1514,7 @@
           if (track) {
             track.addEventListener('ended', () => {
               if (!state.running) return;
-              state.error = 'De camera is gestopt. Probeer opnieuw.';
+              state.error = 'The camera stopped. Please try again.';
               state.live = { ...state.live, bpm: null, locked: false };
               stopMeasurement();
             });
@@ -1544,7 +1544,7 @@
       function disarmClear() {
         clearTimeout(armTimer);
         delete els.clear.dataset.armed;
-        els.clear.textContent = 'Wis alles';
+        els.clear.textContent = 'Clear all';
       }
 
       els.main.addEventListener('click', () => {
@@ -1570,7 +1570,7 @@
         }
 
         els.clear.dataset.armed = '1';
-        els.clear.textContent = 'Zeker weten?';
+        els.clear.textContent = 'Are you sure?';
         armTimer = setTimeout(disarmClear, 4000);
       });
 
