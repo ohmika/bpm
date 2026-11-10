@@ -19,14 +19,37 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-      - name: Generate Android launcher icons from project artwork
+      - name: Generate full-bleed Android launcher icons
         run: |
           python3 -m pip install --quiet Pillow
           python3 - <<'PY'
-          from PIL import Image
+          from PIL import Image, ImageDraw
           from pathlib import Path
 
           source = Image.open("icon-512.png").convert("RGBA")
+          # Find the dark rounded BPM tile, excluding the surrounding white disc.
+          pixels = source.load()
+          xs, ys = [], []
+          for y in range(source.height):
+              for x in range(source.width):
+                  r, g, b, a = pixels[x, y]
+                  if a > 0 and max(r, g, b) < 75:
+                      xs.append(x)
+                      ys.append(y)
+          if not xs:
+              raise SystemExit("Could not locate the dark BPM logo tile in icon-512.png")
+          pad = 3
+          box = (max(0, min(xs)-pad), max(0, min(ys)-pad),
+                 min(source.width, max(xs)+pad+1), min(source.height, max(ys)+pad+1))
+          tile = source.crop(box)
+          side = max(tile.size)
+          square = Image.new("RGBA", (side, side), (12, 10, 10, 255))
+          square.alpha_composite(tile, ((side-tile.width)//2, (side-tile.height)//2))
+          # Remove the old white disc and let the black BPM tile fill the launcher shape.
+          mask = Image.new("L", (side, side), 0)
+          draw = ImageDraw.Draw(mask)
+          draw.rounded_rectangle((0, 0, side-1, side-1), radius=int(side*0.19), fill=255)
+          square.putalpha(mask)
           sizes = {
               "mipmap-mdpi": 48,
               "mipmap-hdpi": 72,
@@ -37,9 +60,8 @@ jobs:
           for folder, size in sizes.items():
               out = Path("app/src/main/res") / folder
               out.mkdir(parents=True, exist_ok=True)
-              icon = source.resize((size, size), Image.Resampling.LANCZOS)
-              icon.save(out / "ic_launcher.png", optimize=True)
-          print("Generated launcher icons for all Android densities.")
+              square.resize((size, size), Image.Resampling.LANCZOS).save(out / "ic_launcher.png", optimize=True)
+          print("Generated full-bleed BPM launcher icons.")
           PY
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
